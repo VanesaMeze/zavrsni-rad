@@ -1,7 +1,6 @@
 <?php
 include("db.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['submit'])) {
         $title = $_POST['title'];
         $body = $_POST['body'];
@@ -11,17 +10,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $err = "*All fields required!";
     } else {
         $currentDate = date('Y-m-d h:i');
-        $sql = "INSERT INTO posts (title, body, author, created_at, author_id) 
-        VALUES ('$title', '$body', '$author', '$currentDate', 2)";
+        $sql = "INSERT INTO posts (title, body, created_at, author_id) 
+        VALUES ('$title', '$body', '$currentDate', '$author')";
 
         $statement = $connection->prepare($sql);
         $statement->execute();
-        $statement->setFetchMode(PDO::FETCH_ASSOC);
-
+        // $statement->setFetchMode(PDO::FETCH_ASSOC);
         header('Location: ./posts.php');
         }
     }
-}
+
+        $sql = "SELECT id, first_name, last_name, gender FROM author";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $statement->setFetchMode(PDO::FETCH_ASSOC);
+        $authors = $statement->fetchAll();
 
 ?>
 
@@ -56,12 +59,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h1>Create new post</h1>
                 </header>
                 <form action="create-post.php" method="POST" id="postsForma">
-
                 <div class="va-c-form va-c-new-post">
-                    <div class="va-c-form-group">
-                        <label for="author" class="va-c-control-label">Author</label>
-                        <input type="text" name="author" id="author" placeholder="Enter your name" class="va-c-form-control" required>
-                    </div>
+
+                        <li><label for="author">Select post author:</label></li>
+                    <li>
+                        <select class="<?php echo $author['gender'] ?>" name="author" placeholder="Select Author" >
+                            <?php foreach($authors as $author) { ?> 
+                                <option class="<?php echo $author['gender'] ?>" value="<?php echo $author['id'] ?>" style="color: <?php if($author["gender"] =="Z"){echo "Salmon";} else if($author["gender"] =="M"){echo "CornflowerBlue";}?>;" href="#">
+                                    <?php echo ($author['first_name']) . ' ' . ($author['last_name'])?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </li>
 
                     <div class="va-c-form-group">
                         <label for="title" class="va-c-control-label">Title</label>
@@ -78,9 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         
                     </div>
                 </div>
+                <?php include('sidebar.php');?>
             </div>
         </main>
     </div>
-
 </body>
 </html>
+<?php include('footer.php')?>
