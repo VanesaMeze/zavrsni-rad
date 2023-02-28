@@ -35,7 +35,6 @@
         $statement->execute();
         $statement->setFetchMode(PDO::FETCH_ASSOC);
         $comments = $statement->fetchAll();
-
     }
 ?>
 
@@ -50,12 +49,12 @@
                             <br><br>
                         </form> 
                         <header>
-                            <h1><?php echo $singlePost['title'] ?></h1>
-                            <div class="va-c-article__meta"><?php echo $singlePost['created_at']?> by <?php echo $singlePost['first_name'] . " " . $singlePost['last_name']?></div>
-                        </header>
-
+                            <h1 class="blog-post-title"><?php echo $singlePost['title'] ?></h1>
+                            <div class="<?php echo $singlePost['created_at']?>" style="color: <?php if($singlePost["gender"] =="Z"){echo "Salmon";} else if($singlePost["gender"] =="M"){echo "CornflowerBlue";}?>;" href="#"> by <?php echo $singlePost['first_name'] . " " . $singlePost['last_name']?></div>
+                        </header>                        
+                
                         <div>
-                            <p><?php echo $singlePost['body']?></p>
+                            <p style="color: <?php if($singlePost["gender"] =="Z"){echo "Salmon";} else if($singlePost["gender"] =="M"){echo "CornflowerBlue";}?>;" href="#">><?php echo $singlePost['body']?></p>
                         </div>
                         <?php include('comments.php'); ?>
                         </div>
@@ -67,4 +66,6 @@
 </main>
 <?php include "footer.php"?>
 </html>
+
+
 
