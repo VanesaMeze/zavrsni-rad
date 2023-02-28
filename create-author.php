@@ -60,12 +60,13 @@ include("db.php");
                         <label for="title" class="va-c-control-label">Last name</label>
                         <input type="text" name="last_name" id="last_name" placeholder="Enter Your last name" class="va-c-form-control" required>
                     </div>
+                    </br>
 
-                        <label for="content" class="va-c-control-label">Your gender:</label><br>
+                        <label for="content" class="va-c-control-label">Your gender:</label>
                         <input type="radio" name="gender" id="M" value="M"></input>
                         <label for="male">Male</label><br>
                         <input type="radio" name="gender" id="Z" value="Z"></input>
-                        <label for="female">Female</label><br>
+                        <label for="female">Female</label></br></br>
 
                     <div class="va-c-form-group">
                         <button class="va-c-btn va-c-btn--primary" type="submit" name="submit">Submit</button>

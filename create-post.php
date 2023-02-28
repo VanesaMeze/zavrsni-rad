@@ -71,6 +71,7 @@ include("db.php");
                             <?php } ?>
                         </select>
                     </li>
+                            </br>
 
                     <div class="va-c-form-group">
                         <label for="title" class="va-c-control-label">Title</label>
